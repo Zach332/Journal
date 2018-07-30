@@ -21,8 +21,11 @@ public class StateManager {
 	public void appRun() {
 		while(true) {
 			if(curState == StateManager.State.DayView) {
-				//dayView();
+				dayView();
 			}
 		}
+	}
+	public void dayView() {
+		curDay.printDay();
 	}
 }
