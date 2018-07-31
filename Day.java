@@ -5,7 +5,7 @@ public class Day {
 	private Reflection reflection;
 	private String date;
 	public Day() {
-		date = Date.getDate();
+		date = DateFinder.getDate();
 		tasks = new Tasks();
 		notes = new Notes();
 		reflection = new Reflection();

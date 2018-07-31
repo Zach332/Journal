@@ -1,9 +1,10 @@
 package src.com.jou.main;
 import java.text.SimpleDateFormat;
-import java.util.*;
-public class Date {
+import java.text.DateFormat;
+import java.util.Date;
+public class DateFinder {
 	private static SimpleDateFormat formatter;
-	public Date() {
+	public DateFinder() {
 		formatter = new SimpleDateFormat("EEEE: MM/dd/yyyy");
 	}
 	public static String getDate() {

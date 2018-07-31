@@ -4,6 +4,8 @@ public class Week {
 	private ArrayList<Day> days;
 	public Week() {
 		days = new ArrayList<Day>();
+		Data.addWeek(this);
+		addDay(new Day());
 	}
 	public void addDay(Day day) {
 		days.add(day);

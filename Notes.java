@@ -3,7 +3,7 @@ import java.util.*;
 public class Notes {
 	private ArrayList<String> notes;
 	public Notes() {
-
+		notes = new ArrayList<String>();
 	}
 	public void addNote(String note) {
 		this.notes.add(note);

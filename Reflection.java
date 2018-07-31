@@ -3,7 +3,7 @@ import java.util.*;
 public class Reflection {
 	private ArrayList<String> reflectionText;
 	public Reflection() {
-
+		reflectionText = new ArrayList<String>();
 	}
 	public void addReflection(String reflection) {
 		reflectionText.add(reflection);

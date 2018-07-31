@@ -26,6 +26,7 @@ public class StateManager {
 		}
 	}
 	public void dayView() {
-		curDay.printDay();
+		Data.getCurDay().printDay();
+		IO.readLine();
 	}
 }
