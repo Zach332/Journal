@@ -8,4 +8,8 @@ public class IO {
 	public static String readLine() {
 		return scanner.nextLine();
 	}
+	public static String readLine(String message) {
+		System.out.println(message);
+		return scanner.nextLine();
+	}
 }

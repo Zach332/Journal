@@ -9,8 +9,10 @@ public class Notes {
 		this.notes.add(note);
 	}
 	public void printNotes() {
+		System.out.println("~Notes~");
 		for(String note: notes) {
-			System.out.println("- " + note);
+			System.out.println(" - " + note);
 		}
+		System.out.println();
 	}
 }

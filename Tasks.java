@@ -9,8 +9,10 @@ public class Tasks {
 		this.tasks.add(task);
 	}
 	public void printTasks() {
-		for(String task: tasks) {
-			System.out.println("- " + task);
+		System.out.println("~Tasks~");
+		for(int i = 0; i < tasks.size(); i++) {
+			System.out.println(" " + (i + 1) + ". " + tasks.get(i));
 		}
+		System.out.println();
 	}
 }

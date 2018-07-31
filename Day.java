@@ -10,6 +10,9 @@ public class Day {
 		notes = new Notes();
 		reflection = new Reflection();
 	}
+	public String getDate() {
+		return date;
+	}
 	public void addTask(String task) {
 		tasks.addTask(task);
 	}
@@ -20,6 +23,8 @@ public class Day {
 		this.reflection.addReflection(reflection);
 	}	
 	public void printDay() {
+		
+		System.out.println("---------------------");
 		System.out.println("**" + date + "**");
 		tasks.printTasks();
 		notes.printNotes();

@@ -9,9 +9,11 @@ public class Reflection {
 		reflectionText.add(reflection);
 	}
 	public void printReflection() {
+		System.out.println("~Reflection~");
 		for(String paragraph: reflectionText) {
-			System.out.println(paragraph);
+			System.out.println(" " + paragraph);
 			System.out.println();
 		}
+		System.out.println();
 	}
 }
