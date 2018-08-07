@@ -4,8 +4,8 @@ public class Init {
 	public static void main(String[] args) {
 		DateFinder dateFinder = new DateFinder();
 		IO io = new IO();
-		Data data = new Data();
 
+		Data data = new Data("journalData.txt");
 		if(Data.weeks.size() == 0) {
 			Week week = new Week();
 		}

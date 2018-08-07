@@ -1,5 +1,6 @@
 package src.com.jou.main;
 import java.util.*;
+import java.io.*;
 public class Week {
 	private Tasks tasks;
 	private Reflection reflection;
@@ -49,5 +50,25 @@ public class Week {
 		tasks.printTasks();
 		goals.printGoals();
 
+	}
+	public void writeData(BufferedWriter bw) {
+		try {
+			bw.write("WEEK");
+			bw.newLine();
+			bw.write("WEEKTASKS");
+			bw.newLine();
+			tasks.writeData(bw);
+			bw.write("WEEKGOALS");
+			bw.newLine();
+			goals.writeData(bw);
+			bw.write("WEEKREFLECTION");
+			bw.newLine();
+			reflection.writeData(bw);
+			for(Day day: days) {
+				day.writeData(bw);
+			}
+		} catch(Exception E) {
+			E.printStackTrace();
+		}
 	}
 }

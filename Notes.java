@@ -1,5 +1,6 @@
 package src.com.jou.main;
 import java.util.*;
+import java.io.*;
 public class Notes {
 	private ArrayList<String> notes;
 	public Notes() {
@@ -14,5 +15,18 @@ public class Notes {
 			System.out.println(" - " + note);
 		}
 		System.out.println();
+	}
+	public void writeData(BufferedWriter bw) {
+		try {
+			for(String note: notes) {
+				bw.write(note);
+				bw.newLine();
+			}
+			bw.write("END");
+			bw.newLine();
+			System.out.println("Note written");
+		} catch(Exception E) {
+			E.printStackTrace();
+		}
 	}
 }

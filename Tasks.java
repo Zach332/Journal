@@ -1,4 +1,5 @@
 package src.com.jou.main;
+import java.io.*;
 import java.util.*;
 public class Tasks {
 	private ArrayList<String> tasks;
@@ -14,5 +15,17 @@ public class Tasks {
 			System.out.println(" " + (i + 1) + ". " + tasks.get(i));
 		}
 		System.out.println();
+	}
+	public void writeData(BufferedWriter bw) {
+		try {
+			for(String task: tasks) {
+				bw.write(task);
+				bw.newLine();
+			}
+			bw.write("END");
+			bw.newLine();
+		} catch(Exception E) {
+			E.printStackTrace();
+		}
 	}
 }

@@ -1,5 +1,6 @@
 package src.com.jou.main;
 import java.util.*;
+import java.io.*;
 public class Goals {
 	private ArrayList<String> goals;
 	public Goals() {
@@ -14,5 +15,17 @@ public class Goals {
 			System.out.println(" - " + goal);
 		}
 		System.out.println();
+	}
+	public void writeData(BufferedWriter bw) {
+		try {
+			for(String goal: goals) {
+				bw.write(goal);
+				bw.newLine();
+			}
+			bw.write("END");
+			bw.newLine();
+		} catch(Exception E) {
+			E.printStackTrace();
+		}
 	}
 }
