@@ -8,8 +8,6 @@ public class Week {
 	private Goals goals;
 	public Week() {
 		days = new ArrayList<Day>();
-		Data.addWeek(this);
-		addDay(new Day());
 		tasks = new Tasks();
 		goals = new Goals();
 		reflection = new Reflection();
@@ -43,6 +41,7 @@ public class Week {
 			System.out.println();
 		}
 		tasks.printTasks();
+		goals.printGoals();
 		reflection.printReflection();
 	}
 	public void printWeekSummary() {

@@ -24,7 +24,6 @@ public class Notes {
 			}
 			bw.write("END");
 			bw.newLine();
-			System.out.println("Note written");
 		} catch(Exception E) {
 			E.printStackTrace();
 		}
