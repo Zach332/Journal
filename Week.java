@@ -28,6 +28,8 @@ public class Week {
 			tempDay = new Day(DateFinder.addDay(tempDay.getDate()));
 			addDay(tempDay);
 		}
+		Data.addWeek(this);
+		Data.sort();
 	}
 	public void addDay(Day day) {
 		days.add(day);

@@ -1,13 +1,17 @@
 //TODO
-//get weeks to have 7 days, mon-sun
-//make a getvalue method for weeks
-//make the data weeks sort thing
+// Go to day- remember to switch curWeek
+// new ongoing task
+// complete/delete tasks
+// every sunday, task is weekly reflection
+// every monday, task is write weekly goals
+// weekly reflection - have list of completed tasks that week
+// carry incomplete tasks to next day
 package src.com.jou.main;
 import java.util.*;
 public class StateManager {
 	private State curState;
-	private Day curDay;
-	private Week curWeek;
+	public Day curDay;
+	public Week curWeek;
 	public StateManager(State startingState, Day curDay, Week curWeek) {
 		curState = startingState;
 		this.curDay = curDay;
@@ -57,12 +61,22 @@ public class StateManager {
 					System.out.println(" - new - (task, goal, reflection");
 					System.out.println(" - day #");
 					System.out.println(" - exit");
+				} else if(input.equals("today")) {
+					curDay = curWeek.getDay(DateFinder.getDate());
+					curState = State.DayView;
+					return;
 				} else if(input.substring(0,3).equals("day")) {
 					curDay = curWeek.getDay(Integer.parseInt(input.substring(4,5))-1);
 					curState = State.DayView;
 					return;
-				} else if(input.substring(0,3).equals("goto day")) {
-					curDay = curWeek.getDay(Integer.parseInt(input.substring(4,5))-1);
+					//Below option is incomplete. Do not use
+				} else if(input.substring(0,9).equals("go to day")) {
+					curDay = curWeek.getDay(Integer.parseInt(input.substring(10,11))-1);
+					if((curWeek = Data.getWeek(DateFinder.getDate())) != null) {
+						curDay = curWeek.getDay(DateFinder.getDate());
+					} else {
+						curWeek = new Week(curDay = new Day());
+					}
 					curState = State.DayView;
 					return;
 				} else {

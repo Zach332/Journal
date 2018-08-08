@@ -70,7 +70,7 @@ public class Data {
 				}
 				if(line.equals("DAY")) {
 					line = br.readLine();
-					java.util.Date tempDate = new java.util.Date(java.sql.Date.valueOf(line).getTime());
+					java.util.Date tempDate = new java.util.Date(new java.sql.Date(Long.valueOf(line)).getTime());
 					curWeek.addDay(new Day(tempDate));
 					curDay = Data.getCurDay();
 				}

@@ -45,7 +45,7 @@ public class Day {
 		try {
 			bw.write("DAY");
 			bw.newLine();
-			bw.write(date.toString());
+			bw.write(String.valueOf(date.getTime()));
 			bw.newLine();
 			bw.write("TASKS");
 			bw.newLine();
