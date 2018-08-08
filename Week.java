@@ -12,14 +12,43 @@ public class Week {
 		goals = new Goals();
 		reflection = new Reflection();
 	}
+	public Week(Day day) {
+		days = new ArrayList<Day>();
+		tasks = new Tasks();
+		goals = new Goals();
+		reflection = new Reflection();
+		Day tempDay = day;
+		while(!(tempDay.getDay().equals("Monday"))) {
+			tempDay = new Day(DateFinder.subtractDay(tempDay.getDate()));
+			addDay(tempDay);
+		}
+		addDay(day);
+		tempDay = day;
+		while(!(tempDay.getDay().equals("Sunday"))) {
+			tempDay = new Day(DateFinder.addDay(tempDay.getDate()));
+			addDay(tempDay);
+		}
+	}
 	public void addDay(Day day) {
 		days.add(day);
 	}
 	public Day getDay(int index) {
 		return days.get(index);
 	}
+	public Day getDay(Date date) {
+		for(Day day: days) {
+			if(DateFinder.getDateString(day.getDate()).equals(DateFinder.getDateString(date))) {
+				return day;
+			}
+		}
+		System.out.println("Date does not exist in this week.");
+		return null;
+	}
 	public Day getLastDay() {
 		return days.get(days.size() - 1);
+	}
+	public Date getLastDate() {
+		return getLastDay().getDate();
 	}
 	public void addTask(String task) {
 		tasks.addTask(task);
@@ -35,9 +64,9 @@ public class Week {
 			System.out.println();
 		}
 		System.out.println("--");
-		System.out.println("Week of " + getDay(0).getDate() + " - " + getLastDay().getDate()) ;
+		System.out.println("Week of " + DateFinder.getDateString(getDay(0).getDate()) + " - " + DateFinder.getDateString(getLastDay().getDate()));
 		for(int i = 0; i < days.size(); i++) {
-			System.out.println(" " + (i + 1) + ". " + getDay(i).getDate());
+			System.out.println(" " + (i + 1) + ". " + DateFinder.getDateString(getDay(i).getDate()));
 			System.out.println();
 		}
 		tasks.printTasks();
@@ -69,5 +98,13 @@ public class Week {
 		} catch(Exception E) {
 			E.printStackTrace();
 		}
+	}
+	public boolean isInWeek(Date date) {
+		if(date.compareTo(getLastDate()) <= 0) {
+			if(date.compareTo(days.get(0).getDate()) >= 0) {
+				return true;
+			}
+		}
+		return false;
 	}
 }

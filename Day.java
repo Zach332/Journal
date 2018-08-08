@@ -1,24 +1,28 @@
 package src.com.jou.main;
 import java.io.*;
+import java.util.*;
 public class Day {
 	private Tasks tasks;
 	private Notes notes;
 	private Reflection reflection;
-	private String date;
+	private Date date;
 	public Day() {
 		date = DateFinder.getDate();
 		tasks = new Tasks();
 		notes = new Notes();
 		reflection = new Reflection();
 	}
-	public Day(String date) {
+	public Day(Date date) {
 		this.date = date;
 		tasks = new Tasks();
 		notes = new Notes();
 		reflection = new Reflection();
 	}
-	public String getDate() {
+	public Date getDate() {
 		return date;
+	}
+	public String getDay() {
+		return DateFinder.getDay(date);
 	}
 	public void addTask(String task) {
 		tasks.addTask(task);
@@ -32,7 +36,7 @@ public class Day {
 	public void printDay() {
 		
 		System.out.println("---------------------");
-		System.out.println("**" + date + "**");
+		System.out.println("**" + DateFinder.getDateString(date) + "**");
 		tasks.printTasks();
 		notes.printNotes();
 		reflection.printReflection();
@@ -41,7 +45,7 @@ public class Day {
 		try {
 			bw.write("DAY");
 			bw.newLine();
-			bw.write(date);
+			bw.write(date.toString());
 			bw.newLine();
 			bw.write("TASKS");
 			bw.newLine();

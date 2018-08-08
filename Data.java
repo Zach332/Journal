@@ -2,6 +2,7 @@ package src.com.jou.main;
 import java.nio.file.*;
 import java.util.*;
 import java.io.*;
+import java.sql.Date;
 public class Data {
 	public static ArrayList<Week> weeks;
 	private static File dataFile;
@@ -69,7 +70,8 @@ public class Data {
 				}
 				if(line.equals("DAY")) {
 					line = br.readLine();
-					curWeek.addDay(new Day(line));
+					java.util.Date tempDate = new java.util.Date(java.sql.Date.valueOf(line).getTime());
+					curWeek.addDay(new Day(tempDate));
 					curDay = Data.getCurDay();
 				}
 				if(line.equals("TASKS")) {
@@ -91,5 +93,39 @@ public class Data {
 		}catch(Exception E) {
 			E.printStackTrace();
 		}
+	}
+	public static void sort() {
+		ArrayList<Week> tempArr = new ArrayList<Week>();
+		while(weeks.size() > 0) {
+			java.util.Date min = weeks.get(0).getLastDate();
+			int minIndex = 0;
+			for(int i = 1; i < weeks.size(); i++) {
+				if(weeks.get(0).getLastDate().compareTo(min) < 0) {
+					min = weeks.get(0).getLastDate();
+					minIndex = i;
+				}
+			}
+			tempArr.add(weeks.remove(minIndex));
+		}
+		weeks = tempArr;
+	}
+	public static Week getWeek(java.util.Date date) {
+		// binary search
+		int baseline = 0;
+		int highline = weeks.size();
+		while(baseline <= highline) {
+			int middle = (highline + baseline) / 2;
+			Week middleWeek = weeks.get(middle);
+			if(middleWeek.isInWeek(date)) {
+				return middleWeek;
+			}
+			if(date.compareTo(middleWeek.getLastDate()) >= 0) {
+				baseline = middle + 1;
+			}
+			if(date.compareTo(middleWeek.getLastDate()) <= 0) {
+				highline = middle - 1;
+			}	
+		}
+		return null;
 	}
 }

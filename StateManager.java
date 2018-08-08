@@ -1,13 +1,17 @@
+//TODO
+//get weeks to have 7 days, mon-sun
+//make a getvalue method for weeks
+//make the data weeks sort thing
 package src.com.jou.main;
 import java.util.*;
 public class StateManager {
 	private State curState;
 	private Day curDay;
 	private Week curWeek;
-	public StateManager(State startingState) {
+	public StateManager(State startingState, Day curDay, Week curWeek) {
 		curState = startingState;
-		curDay = Data.getCurDay();
-		curWeek = Data.getCurWeek();
+		this.curDay = curDay;
+		this.curWeek = curWeek;
 	}
 	public enum State {
 		DayView(),
@@ -38,7 +42,7 @@ public class StateManager {
 					return;
 				} else if(input.equals("new reflection")) {
 					while(true) {
-						String refInput = IO.readLine("What did you learn? ");
+						String refInput = IO.readLine("What did you learn? (end to quit)");
 						if(refInput.equals("end"))break;
 						curWeek.addReflection(refInput);
 					}
@@ -49,7 +53,15 @@ public class StateManager {
 				} else if(input.equals("quit") || input.equals("exit")) {
 					Data.save();
 					System.exit(0);
+				} else if(input.equals("help")) {
+					System.out.println(" - new - (task, goal, reflection");
+					System.out.println(" - day #");
+					System.out.println(" - exit");
 				} else if(input.substring(0,3).equals("day")) {
+					curDay = curWeek.getDay(Integer.parseInt(input.substring(4,5))-1);
+					curState = State.DayView;
+					return;
+				} else if(input.substring(0,3).equals("goto day")) {
 					curDay = curWeek.getDay(Integer.parseInt(input.substring(4,5))-1);
 					curState = State.DayView;
 					return;
@@ -75,7 +87,7 @@ public class StateManager {
 				return;
 			} else if(input.equals("new reflection")) {
 				while(true) {
-					String refInput = IO.readLine("What did you learn? ");
+					String refInput = IO.readLine("What did you learn? (end to quit)");
 					if(refInput.equals("end"))break;
 					curDay.addReflection(refInput);
 				}
@@ -86,6 +98,10 @@ public class StateManager {
 			} else if(input.equals("quit") || input.equals("exit")) {
 				Data.save();
 				System.exit(0);
+			} else if(input.equals("help")) {
+				System.out.println(" - new - (task, note, reflection");
+				System.out.println(" - week");
+				System.out.println(" - exit");
 			} else {
 				System.out.println("Input invalid.");
 			}
