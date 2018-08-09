@@ -11,8 +11,24 @@ public class Day {
 		tasks = new Tasks();
 		notes = new Notes();
 		reflection = new Reflection();
+		if(DateFinder.getDay(date).equals("Monday")) {
+			addTask("Write weekly goals");
+		} else if(DateFinder.getDay(date).equals("Sunday")) {
+			addTask("Write weekly reflection");
+		}
 	}
 	public Day(Date date) {
+		this.date = date;
+		tasks = new Tasks();
+		notes = new Notes();
+		reflection = new Reflection();
+		if(DateFinder.getDay(date).equals("Monday")) {
+			addTask("Write weekly goals");
+		} else if(DateFinder.getDay(date).equals("Sunday")) {
+			addTask("Write weekly reflection");
+		}
+	}
+	public Day(Date date, boolean isStoredDate) {
 		this.date = date;
 		tasks = new Tasks();
 		notes = new Notes();
@@ -26,6 +42,9 @@ public class Day {
 	}
 	public void addTask(String task) {
 		tasks.addTask(task);
+	}
+	public String removeTask(int index) {
+		return tasks.removeTask(index);
 	}
 	public void addNote(String note) {
 		notes.addNote(note);

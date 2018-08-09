@@ -68,10 +68,15 @@ public class Data {
 						curWeek.addReflection(line);
 					}
 				}
+				if(line.equals("COMPLETEDTASKS")) {
+					while(!((line = br.readLine()).equals("END"))) {
+						curWeek.addCompletedTask(line);
+					}
+				}
 				if(line.equals("DAY")) {
 					line = br.readLine();
 					java.util.Date tempDate = new java.util.Date(new java.sql.Date(Long.valueOf(line)).getTime());
-					curWeek.addDay(new Day(tempDate));
+					curWeek.addDay(new Day(tempDate, true));
 					curDay = Data.getCurDay();
 				}
 				if(line.equals("TASKS")) {
@@ -112,7 +117,7 @@ public class Data {
 	public static Week getWeek(java.util.Date date) {
 		// binary search
 		int baseline = 0;
-		int highline = weeks.size();
+		int highline = weeks.size() - 1;
 		while(baseline <= highline) {
 			int middle = (highline + baseline) / 2;
 			Week middleWeek = weeks.get(middle);
@@ -127,5 +132,14 @@ public class Data {
 			}	
 		}
 		return null;
+	}
+	public static java.util.Date stringToDate(String dateString) {
+		try {
+			java.sql.Date sqlDate = java.sql.Date.valueOf(dateString);
+			java.util.Date date = new Date(sqlDate.getTime());
+			return date;
+		} catch(Exception E) {
+			return null;
+		}
 	}
 }

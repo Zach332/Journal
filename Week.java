@@ -6,6 +6,7 @@ public class Week {
 	private Reflection reflection;
 	private ArrayList<Day> days;
 	private Goals goals;
+	private ArrayList<String> completedTasks = new ArrayList<String>();
 	public Week() {
 		days = new ArrayList<Day>();
 		tasks = new Tasks();
@@ -17,15 +18,13 @@ public class Week {
 		tasks = new Tasks();
 		goals = new Goals();
 		reflection = new Reflection();
-		Day tempDay = day;
-		while(!(tempDay.getDay().equals("Monday"))) {
-			tempDay = new Day(DateFinder.subtractDay(tempDay.getDate()));
-			addDay(tempDay);
+		Date tempDate = day.getDate();
+		while(!(DateFinder.getDay(tempDate).equals("Monday"))) {
+			tempDate = DateFinder.subtractDay(tempDate);
 		}
-		addDay(day);
-		tempDay = day;
-		while(!(tempDay.getDay().equals("Sunday"))) {
-			tempDay = new Day(DateFinder.addDay(tempDay.getDate()));
+		addDay(new Day(tempDate));
+		while(!(DateFinder.getDay(tempDate).equals("Sunday"))) {
+			Day tempDay = new Day(tempDate = DateFinder.addDay(tempDate));
 			addDay(tempDay);
 		}
 		Data.addWeek(this);
@@ -55,11 +54,17 @@ public class Week {
 	public void addTask(String task) {
 		tasks.addTask(task);
 	}
+	public String removeTask(int index) {
+		return tasks.removeTask(index);
+	}
 	public void addReflection(String reflection) {
 		this.reflection.addReflection(reflection);
 	}	
 	public void addGoal(String goal) {
 		goals.addGoal(goal);
+	}
+	public void addCompletedTask(String ct) {
+		completedTasks.add(ct);
 	}
 	public void printWeek() {
 		for(int i = 0; i < 20; i++) {
@@ -74,6 +79,10 @@ public class Week {
 		tasks.printTasks();
 		goals.printGoals();
 		reflection.printReflection();
+		System.out.println("~Completed Tasks~");
+		for(String ct: completedTasks) {
+			System.out.println(" - " + ct);
+		}
 	}
 	public void printWeekSummary() {
 		System.out.println("**Weekly information**");
@@ -94,6 +103,14 @@ public class Week {
 			bw.write("WEEKREFLECTION");
 			bw.newLine();
 			reflection.writeData(bw);
+			bw.write("COMPLETEDTASKS");
+			bw.newLine();
+			for(String ct: completedTasks) {
+				bw.write(ct);
+				bw.newLine();
+			}
+			bw.write("END");
+			bw.newLine();
 			for(Day day: days) {
 				day.writeData(bw);
 			}

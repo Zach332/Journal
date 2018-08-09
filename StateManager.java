@@ -1,9 +1,6 @@
 //TODO
-// Go to day- remember to switch curWeek
 // new ongoing task
-// complete/delete tasks
-// every sunday, task is weekly reflection
-// every monday, task is write weekly goals
+// delete tasks (and other things if needed)
 // weekly reflection - have list of completed tasks that week
 // carry incomplete tasks to next day
 package src.com.jou.main;
@@ -41,17 +38,17 @@ public class StateManager {
 		while(true) {
 			try {
 				String input = IO.readLine();
-				if(input.equals("new task")) {
+				if(input.equals("new task") || input.equals("nt")) {
 					curWeek.addTask(IO.readLine("Task: "));
 					return;
-				} else if(input.equals("new reflection")) {
+				} else if(input.equals("new reflection") || input.equals("nr")) {
 					while(true) {
 						String refInput = IO.readLine("What did you learn? (end to quit)");
 						if(refInput.equals("end"))break;
 						curWeek.addReflection(refInput);
 					}
 					return;
-				} else if(input.equals("new goal")) {
+				} else if(input.equals("new goal") || input.equals("ng")) {
 					curWeek.addGoal(IO.readLine("Goal: "));
 					return;
 				} else if(input.equals("quit") || input.equals("exit")) {
@@ -62,27 +59,36 @@ public class StateManager {
 					System.out.println(" - day #");
 					System.out.println(" - exit");
 				} else if(input.equals("today")) {
+					curWeek = Data.getWeek(DateFinder.getDate());
 					curDay = curWeek.getDay(DateFinder.getDate());
+					curState = State.DayView;
+					return;
+				} else if(input.equals("go to day") || input.equals("gtd")) {
+					System.out.println("Enter the day in this format - yyyy-[m]m-[d]d");
+					String tempInput = IO.readLine();
+					java.util.Date tempDate = Data.stringToDate(tempInput);
+					if(tempDate == null) {
+						System.out.println("Date is invalid.");
+						return;
+					}
+					if((curWeek = Data.getWeek(tempDate)) != null) {
+						curDay = curWeek.getDay(tempDate);
+					} else {
+						curWeek = new Week(curDay = new Day(tempDate));
+					}
 					curState = State.DayView;
 					return;
 				} else if(input.substring(0,3).equals("day")) {
 					curDay = curWeek.getDay(Integer.parseInt(input.substring(4,5))-1);
 					curState = State.DayView;
 					return;
-					//Below option is incomplete. Do not use
-				} else if(input.substring(0,9).equals("go to day")) {
-					curDay = curWeek.getDay(Integer.parseInt(input.substring(10,11))-1);
-					if((curWeek = Data.getWeek(DateFinder.getDate())) != null) {
-						curDay = curWeek.getDay(DateFinder.getDate());
-					} else {
-						curWeek = new Week(curDay = new Day());
-					}
-					curState = State.DayView;
+				} else if(input.substring(0,8).equals("complete")) {
+					curWeek.addCompletedTask(curWeek.removeTask(Integer.parseInt(input.substring(9,input.length())) - 1));
 					return;
 				} else {
-					System.out.println("Invalid input");
+					System.out.println("Input invalid.");
 				}
-			} catch(Exception E) {System.out.println("Invalid input");}
+			} catch(Exception E) {E.printStackTrace();System.out.println("Your input is invalid. Please try again or type \"help\" for help.");}
 		}
 	}
 	public void dayView() {
@@ -92,33 +98,38 @@ public class StateManager {
 		curWeek.printWeekSummary();
 		curDay.printDay();
 		while(true) {
-			String input = IO.readLine();
-			if(input.equals("new task")) {
-				curDay.addTask(IO.readLine("Task: "));
-				return;
-			} else if(input.equals("new note")) {
-				curDay.addNote(IO.readLine("Note: "));
-				return;
-			} else if(input.equals("new reflection")) {
-				while(true) {
-					String refInput = IO.readLine("What did you learn? (end to quit)");
-					if(refInput.equals("end"))break;
-					curDay.addReflection(refInput);
+			try {
+				String input = IO.readLine();
+				if(input.equals("new task") || input.equals("nt")) {
+					curDay.addTask(IO.readLine("Task: "));
+					return;
+				} else if(input.equals("new note") || input.equals("nn")) {
+					curDay.addNote(IO.readLine("Note: "));
+					return;
+				} else if(input.equals("new reflection") || input.equals("nr")) {
+					while(true) {
+						String refInput = IO.readLine("What did you learn? (end to quit)");
+						if(refInput.equals("end"))break;
+						curDay.addReflection(refInput);
+					}
+					return;
+				} else if(input.equals("week") || input.equals("w")) {
+					curState = State.WeekView;
+					return;
+				} else if(input.equals("quit") || input.equals("exit")) {
+					Data.save();
+					System.exit(0);
+				} else if(input.equals("help")) {
+					System.out.println(" - new - (task, note, reflection");
+					System.out.println(" - week");
+					System.out.println(" - exit");
+				} else if(input.substring(0,8).equals("complete")) {
+					curWeek.addCompletedTask(curDay.removeTask(Integer.parseInt(input.substring(9,input.length())) - 1));
+					return;
+				} else {
+					System.out.println("Input invalid.");
 				}
-				return;
-			} else if(input.equals("week")) {
-				curState = State.WeekView;
-				return;
-			} else if(input.equals("quit") || input.equals("exit")) {
-				Data.save();
-				System.exit(0);
-			} else if(input.equals("help")) {
-				System.out.println(" - new - (task, note, reflection");
-				System.out.println(" - week");
-				System.out.println(" - exit");
-			} else {
-				System.out.println("Input invalid.");
-			}
+			} catch(Exception E) {E.printStackTrace();System.out.println("Your input is invalid. Please try again or type \"help\" for help.");}
 		}
 	}
 }

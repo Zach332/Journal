@@ -16,6 +16,9 @@ public class Tasks {
 		}
 		System.out.println();
 	}
+	public String removeTask(int index) {
+		return tasks.remove(index);
+	}
 	public void writeData(BufferedWriter bw) {
 		try {
 			for(String task: tasks) {
