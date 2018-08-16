@@ -1,7 +1,6 @@
 //TODO
-// new ongoing task
-// delete tasks (and other things if needed)
-// weekly reflection - have list of completed tasks that week
+// new temporary task
+// delete  other things if needed
 // carry incomplete tasks to next day
 package src.com.jou.main;
 import java.util.*;
@@ -42,6 +41,7 @@ public class StateManager {
 					curWeek.addTask(IO.readLine("Task: "));
 					return;
 				} else if(input.equals("new reflection") || input.equals("nr")) {
+					curWeek.printCompletedTasks();
 					while(true) {
 						String refInput = IO.readLine("What did you learn? (end to quit)");
 						if(refInput.equals("end"))break;
@@ -81,6 +81,9 @@ public class StateManager {
 				} else if(input.substring(0,3).equals("day")) {
 					curDay = curWeek.getDay(Integer.parseInt(input.substring(4,5))-1);
 					curState = State.DayView;
+					return;
+				} else if(input.substring(0,6).equals("delete")) {
+					curWeek.removeTask(Integer.parseInt(input.substring(7,input.length())) - 1);
 					return;
 				} else if(input.substring(0,8).equals("complete")) {
 					curWeek.addCompletedTask(curWeek.removeTask(Integer.parseInt(input.substring(9,input.length())) - 1));
@@ -123,6 +126,9 @@ public class StateManager {
 					System.out.println(" - new - (task, note, reflection");
 					System.out.println(" - week");
 					System.out.println(" - exit");
+				} else if(input.substring(0,6).equals("delete")) {
+					curDay.removeTask(Integer.parseInt(input.substring(7,input.length())) - 1);
+					return;
 				} else if(input.substring(0,8).equals("complete")) {
 					curWeek.addCompletedTask(curDay.removeTask(Integer.parseInt(input.substring(9,input.length())) - 1));
 					return;

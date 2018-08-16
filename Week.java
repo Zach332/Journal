@@ -79,16 +79,18 @@ public class Week {
 		tasks.printTasks();
 		goals.printGoals();
 		reflection.printReflection();
-		System.out.println("~Completed Tasks~");
-		for(String ct: completedTasks) {
-			System.out.println(" - " + ct);
-		}
 	}
 	public void printWeekSummary() {
 		System.out.println("**Weekly information**");
 		tasks.printTasks();
 		goals.printGoals();
 
+	}
+	public void printCompletedTasks() {
+		System.out.println("~Completed Tasks~");
+		for(String ct: completedTasks) {
+			System.out.println(" - " + ct);
+		}
 	}
 	public void writeData(BufferedWriter bw) {
 		try {
