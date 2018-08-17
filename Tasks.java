@@ -6,6 +6,9 @@ public class Tasks {
 	public Tasks() {
 		tasks = new ArrayList<String>();
 	}
+	public ArrayList<String> getTaskStrings() {
+		return tasks;
+	}
 	public void addTask(String task) {
 		this.tasks.add(task);
 	}

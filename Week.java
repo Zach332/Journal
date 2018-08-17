@@ -42,11 +42,14 @@ public class Week {
 				return day;
 			}
 		}
-		System.out.println("Date does not exist in this week.");
+		//System.out.println("Date does not exist in this week.");
 		return null;
 	}
 	public Day getLastDay() {
 		return days.get(days.size() - 1);
+	}
+	public Day getFirstDay() {
+		return days.get(0);
 	}
 	public Date getLastDate() {
 		return getLastDay().getDate();

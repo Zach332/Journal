@@ -52,6 +52,9 @@ public class Day {
 	public void addReflection(String reflection) {
 		this.reflection.addReflection(reflection);
 	}	
+	public ArrayList<String> getTasksStrings() {
+		return tasks.getTaskStrings();
+	}
 	public void printDay() {
 		
 		System.out.println("---------------------");

@@ -19,12 +19,21 @@ public class Data {
 	public static void addWeek(Week week) {
 		weeks.add(week);
 	}
+	public static int getWeekIndex(Week week) {
+		for(int i = 0; i < weeks.size(); i++) {
+			if(weeks.get(i).equals(week)) {
+				return i;
+			}
+		}
+		return -1;
+	}
 	public static void save() {
 		try {
 			File copyFile = new File("journalData.copy");
 			Files.copy(dataFile.toPath(), copyFile.toPath());
 			FileWriter writer = new FileWriter(dataFile);
 			BufferedWriter bw = new BufferedWriter(writer);
+			saveDate(bw);
 			for(Week week: weeks) {
 				week.writeData(bw);
 			}
@@ -36,7 +45,16 @@ public class Data {
 		}
 		System.out.println("Save successful - data written to " + dataFile);
 	}
+	public static void saveDate(BufferedWriter bw) {
+		try {
+			bw.write("LASTLOGIN");
+			bw.newLine();
+			bw.write(String.valueOf(DateFinder.getDate().getTime()));
+			bw.newLine();
+		} catch(Exception E) {E.printStackTrace();}
+	}
 	public static void load() {
+		java.util.Date today = DateFinder.getDate();
 		File copyFile = new File("journalData.copy");
 		if(copyFile.exists()) {
 			System.out.println("There was an unexpected error during the last save session. Please transfer the data from journalData.copy to journalData.txt, then delete the journalData.copy file.");
@@ -48,7 +66,17 @@ public class Data {
 			String line = null;
 			Week curWeek = null;
 			Day curDay = null;
+			boolean carryTasks = false;
+			java.util.Date lastLogin = null;
 			while((line = br.readLine()) != null) {
+				if(line.equals("LASTLOGIN")) {
+					line = br.readLine();
+					lastLogin = new java.util.Date(new java.sql.Date(Long.valueOf(line)).getTime());
+					if(!(DateFinder.getDateString(today).equals(DateFinder.getDateString(lastLogin)))) {
+						System.out.println("WE HAVE A PROBLEM");
+						carryTasks = true;
+					}
+				}
 				if(line.equals("WEEK")) {
 					curWeek = new Week();
 					weeks.add(curWeek);
@@ -92,6 +120,26 @@ public class Data {
 				if(line.equals("REFLECTION")) {
 					while(!((line = br.readLine()).equals("END"))) {
 						curDay.addReflection(line);
+					}
+				}
+			}
+			if(carryTasks == true) {
+				ArrayList<ArrayList<String>> taskStrings = new ArrayList<ArrayList<String>>();
+				Week tempWeek = getWeek(lastLogin);
+				int weekIndex = getWeekIndex(tempWeek);
+				Day tempDay = tempWeek.getDay(lastLogin);
+				while(!(DateFinder.getDateString(tempDay.getDate()).equals(DateFinder.getDateString(today)))) {
+					taskStrings.add(tempDay.getTasksStrings());
+					java.util.Date tempDate = DateFinder.addDay(tempDay.getDate());
+					if((tempDay = tempWeek.getDay(tempDate)) == null) {
+						weekIndex++;
+						tempWeek = weeks.get(weekIndex);
+						tempDay = tempWeek.getFirstDay();
+					} 
+				}
+				for(ArrayList<String> a: taskStrings) {
+					for(String task: a) {
+						tempDay.addTask(task);
 					}
 				}
 			}
