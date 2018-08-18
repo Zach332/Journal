@@ -43,11 +43,17 @@ public class Day {
 	public void addTask(String task) {
 		tasks.addTask(task);
 	}
+	public void addDailyTask(String task) {
+		tasks.addDailyTask(task);
+	}
 	public String removeTask(int index) {
 		return tasks.removeTask(index);
 	}
 	public void addNote(String note) {
 		notes.addNote(note);
+	}
+	public void removeNote(int index) {
+		notes.removeNote(index);
 	}
 	public void addReflection(String reflection) {
 		this.reflection.addReflection(reflection);

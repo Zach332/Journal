@@ -9,6 +9,9 @@ public class Notes {
 	public void addNote(String note) {
 		this.notes.add(note);
 	}
+	public String removeNote(int index) {
+		return notes.remove(index);
+	}
 	public void printNotes() {
 		System.out.println("~Notes~");
 		for(String note: notes) {

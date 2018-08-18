@@ -1,5 +1,7 @@
 //TODO
-// new temporary task
+// make backup cycle (5 files) - now just need to have initializaion sequence make all files if they dont exist
+// new ongoing task
+// new daily task
 // delete  other things if needed
 // carry incomplete tasks to next day
 package src.com.jou.main;
@@ -106,6 +108,9 @@ public class StateManager {
 				if(input.equals("new task") || input.equals("nt")) {
 					curDay.addTask(IO.readLine("Task: "));
 					return;
+				} else if(input.equals("new daily task") || input.equals("ndt")) {
+					curDay.addDailyTask(IO.readLine("Daily task: "));
+					return;
 				} else if(input.equals("new note") || input.equals("nn")) {
 					curDay.addNote(IO.readLine("Note: "));
 					return;
@@ -126,6 +131,9 @@ public class StateManager {
 					System.out.println(" - new - (task, note, reflection");
 					System.out.println(" - week");
 					System.out.println(" - exit");
+				} else if(input.equals("delete note")) {
+					curDay.removeNote(Integer.parseInt(IO.readLine("Note number: ")) - 1);
+					return;
 				} else if(input.substring(0,6).equals("delete")) {
 					curDay.removeTask(Integer.parseInt(input.substring(7,input.length())) - 1);
 					return;

@@ -22,7 +22,7 @@ public class Week {
 		while(!(DateFinder.getDay(tempDate).equals("Monday"))) {
 			tempDate = DateFinder.subtractDay(tempDate);
 		}
-		addDay(new Day(tempDate));
+		addDay(day);
 		while(!(DateFinder.getDay(tempDate).equals("Sunday"))) {
 			Day tempDay = new Day(tempDate = DateFinder.addDay(tempDate));
 			addDay(tempDay);
@@ -75,7 +75,9 @@ public class Week {
 		}
 		System.out.println("--");
 		System.out.println("Week of " + DateFinder.getDateString(getDay(0).getDate()) + " - " + DateFinder.getDateString(getLastDay().getDate()));
+		String today = DateFinder.getDateString(DateFinder.getDate());
 		for(int i = 0; i < days.size(); i++) {
+			if(DateFinder.getDateString(getDay(i).getDate()).equals(today)) {System.out.print(" ~");}
 			System.out.println(" " + (i + 1) + ". " + DateFinder.getDateString(getDay(i).getDate()));
 			System.out.println();
 		}

@@ -6,6 +6,7 @@ import java.sql.Date;
 public class Data {
 	public static ArrayList<Week> weeks;
 	private static File dataFile;
+	private static String backupFileString = ".0";
 	public static Week getCurWeek() {
 		return weeks.get(weeks.size() - 1);
 	}
@@ -39,6 +40,8 @@ public class Data {
 			}
 			bw.flush();
 			bw.close();
+			File backupFile = new File(backupFileString);
+			Files.copy(dataFile.toPath(), backupFile.toPath(), StandardCopyOption.REPLACE_EXISTING);
 			copyFile.delete();
 		} catch (Exception E) {
 			E.printStackTrace();
@@ -51,6 +54,8 @@ public class Data {
 			bw.newLine();
 			bw.write(String.valueOf(DateFinder.getDate().getTime()));
 			bw.newLine();
+			bw.write(backupFileString);
+			bw.newLine();
 		} catch(Exception E) {E.printStackTrace();}
 	}
 	public static void load() {
@@ -59,6 +64,9 @@ public class Data {
 		if(copyFile.exists()) {
 			System.out.println("There was an unexpected error during the last save session. Please transfer the data from journalData.copy to journalData.txt, then delete the journalData.copy file.");
 			System.exit(0);
+		}
+		if(!(dataFile.exists())) {
+			initializeFiles();
 		}
 		try {
 			FileReader reader = new FileReader(dataFile);
@@ -73,8 +81,14 @@ public class Data {
 					line = br.readLine();
 					lastLogin = new java.util.Date(new java.sql.Date(Long.valueOf(line)).getTime());
 					if(!(DateFinder.getDateString(today).equals(DateFinder.getDateString(lastLogin)))) {
-						System.out.println("WE HAVE A PROBLEM");
 						carryTasks = true;
+					}
+					line = br.readLine();
+					if(line.equals(".4")) {
+						backupFileString = ".0";
+					} else {
+						int temp = Integer.parseInt(line.substring(1))+1;
+						backupFileString = "." + String.valueOf(temp);
 					}
 				}
 				if(line.equals("WEEK")) {
@@ -111,6 +125,9 @@ public class Data {
 					while(!((line = br.readLine()).equals("END"))) {
 						curDay.addTask(line);
 					}
+					while(!((line = br.readLine()).equals("END"))) {
+						curDay.addDailyTask(line);
+					}
 				}
 				if(line.equals("NOTES")) {
 					while(!((line = br.readLine()).equals("END"))) {
@@ -145,6 +162,25 @@ public class Data {
 			}
 		}catch(Exception E) {
 			E.printStackTrace();
+		}
+	}
+	public static void initializeFiles() {
+		try {
+			dataFile.createNewFile();
+			File f0= new File(".0");
+			f0.createNewFile();
+			File f1 = new File(".1");
+			f1.createNewFile();
+			File f2 = new File(".2");
+			f2.createNewFile();
+			File f3 = new File(".3");
+			f3.createNewFile();
+			File f4 = new File(".4");
+			f4.createNewFile();
+		} catch(Exception E) {
+			E.printStackTrace();
+			System.out.println("Error initializing data files.");
+			System.exit(0);
 		}
 	}
 	public static void sort() {
