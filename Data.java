@@ -183,6 +183,20 @@ public class Data {
 			System.exit(0);
 		}
 	}
+	public static void addOngoingTask(java.util.Date startDate, java.util.Date endDate, String task) {
+		java.util.Date curDate = startDate;
+		while(curDate.compareTo(endDate) <= 0) {
+			Week curWeek;
+			Day curDay;
+			if((curWeek = getWeek(curDate)) == null) {
+				curWeek = new Week(new Day(curDate));
+			}
+			curDay = curWeek.getDay(curDate);
+			System.out.println(DateFinder.getDateString(curDay.getDate()));
+			curDay.addDailyTask(task);
+			curDate = DateFinder.addDay(curDate);
+		}
+	}
 	public static void sort() {
 		ArrayList<Week> tempArr = new ArrayList<Week>();
 		while(weeks.size() > 0) {

@@ -1,9 +1,6 @@
 //TODO
-// make backup cycle (5 files) - now just need to have initializaion sequence make all files if they dont exist
 // new ongoing task
-// new daily task
 // delete  other things if needed
-// carry incomplete tasks to next day
 package src.com.jou.main;
 import java.util.*;
 public class StateManager {
@@ -79,6 +76,23 @@ public class StateManager {
 						curWeek = new Week(curDay = new Day(tempDate));
 					}
 					curState = State.DayView;
+					return;
+				} else if(input.equals("new ongoing task") || input.equals("not")) {
+					System.out.println("Enter the start day in this format - yyyy-[m]m-[d]d");
+					String startDay = IO.readLine();
+					java.util.Date startDate = Data.stringToDate(startDay);
+					if(startDate == null) {
+						System.out.println("Date is invalid.");
+						return;
+					}
+					System.out.println("Enter the end day in this format - yyyy-[m]m-[d]d");
+					String endDay = IO.readLine();
+					java.util.Date endDate = Data.stringToDate(endDay);
+					if(endDate == null || startDate.compareTo(endDate) > 0) {
+						System.out.println("Date is invalid.");
+						return;
+					}
+					Data.addOngoingTask(startDate, endDate, IO.readLine("Task: "));
 					return;
 				} else if(input.substring(0,3).equals("day")) {
 					curDay = curWeek.getDay(Integer.parseInt(input.substring(4,5))-1);
