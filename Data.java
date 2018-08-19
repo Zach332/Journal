@@ -232,6 +232,9 @@ public class Data {
 		return null;
 	}
 	public static java.util.Date stringToDate(String dateString) {
+		if(dateString.length() <= 5) {
+			dateString = DateFinder.getYear() + "-" + dateString;
+		}
 		try {
 			java.sql.Date sqlDate = java.sql.Date.valueOf(dateString);
 			java.util.Date date = new Date(sqlDate.getTime());

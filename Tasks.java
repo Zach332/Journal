@@ -31,6 +31,7 @@ public class Tasks {
 	public String removeTask(int index) {
 		String temp = tasks.remove(index);
 		carryTasks.remove(temp);
+		dailyTasks.remove(temp);
 		return temp;
 	}
 	public void writeData(BufferedWriter bw) {

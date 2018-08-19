@@ -12,6 +12,7 @@ public class Week {
 		tasks = new Tasks();
 		goals = new Goals();
 		reflection = new Reflection();
+		Data.sort();
 	}
 	public Week(Day day) {
 		days = new ArrayList<Day>();
@@ -22,10 +23,18 @@ public class Week {
 		while(!(DateFinder.getDay(tempDate).equals("Monday"))) {
 			tempDate = DateFinder.subtractDay(tempDate);
 		}
-		addDay(day);
+		if(DateFinder.getDay(day.getDate()).equals("Monday")) {
+			addDay(day);
+		} else {
+			addDay(new Day(tempDate));
+		}
 		while(!(DateFinder.getDay(tempDate).equals("Sunday"))) {
 			Day tempDay = new Day(tempDate = DateFinder.addDay(tempDate));
-			addDay(tempDay);
+			if(DateFinder.getDay(day.getDate()).equals(DateFinder.getDay(tempDay.getDate()))) {
+				addDay(day);
+			} else {
+				addDay(tempDay);
+			}
 		}
 		Data.addWeek(this);
 		Data.sort();
@@ -65,6 +74,9 @@ public class Week {
 	}	
 	public void addGoal(String goal) {
 		goals.addGoal(goal);
+	}
+	public String removeGoal(int index) {
+		return goals.removeGoal(index);
 	}
 	public void addCompletedTask(String ct) {
 		completedTasks.add(ct);
@@ -126,6 +138,9 @@ public class Week {
 		}
 	}
 	public boolean isInWeek(Date date) {
+		if(DateFinder.getDateString(date).equals(DateFinder.getDateString(days.get(0).getDate())) || DateFinder.getDateString(date).equals(DateFinder.getDateString(getLastDate()))) {
+			return true;
+		}
 		if(date.compareTo(getLastDate()) <= 0) {
 			if(date.compareTo(days.get(0).getDate()) >= 0) {
 				return true;

@@ -13,6 +13,10 @@ public class DateFinder {
 	public static String getDateString(Date date) {
 		return formatter.format(date);
 	}
+	public static String getYear() {
+		SimpleDateFormat yearFormat = new SimpleDateFormat("yyyy");
+		return yearFormat.format(getDate());
+	}
 	public static String getDay(Date date) {
 		SimpleDateFormat dayFormat = new SimpleDateFormat("EEEE");
 		return dayFormat.format(date);

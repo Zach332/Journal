@@ -9,6 +9,9 @@ public class Goals {
 	public void addGoal(String goal) {
 		this.goals.add(goal);
 	}
+	public String removeGoal(int index) {
+		return goals.remove(index);
+	}
 	public void printGoals() {
 		System.out.println("~Goals~");
 		for(String goal: goals) {

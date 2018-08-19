@@ -1,6 +1,3 @@
-//TODO
-// new ongoing task
-// delete  other things if needed
 package src.com.jou.main;
 import java.util.*;
 public class StateManager {
@@ -50,6 +47,9 @@ public class StateManager {
 				} else if(input.equals("new goal") || input.equals("ng")) {
 					curWeek.addGoal(IO.readLine("Goal: "));
 					return;
+				} else if(input.equals("delete goal")) {
+					curWeek.removeGoal(Integer.parseInt(IO.readLine("Goal number: ")) - 1);
+					return;
 				} else if(input.equals("quit") || input.equals("exit")) {
 					Data.save();
 					System.exit(0);
@@ -68,6 +68,7 @@ public class StateManager {
 					java.util.Date tempDate = Data.stringToDate(tempInput);
 					if(tempDate == null) {
 						System.out.println("Date is invalid.");
+						IO.readLine("Enter to continue.");
 						return;
 					}
 					if((curWeek = Data.getWeek(tempDate)) != null) {
@@ -83,6 +84,7 @@ public class StateManager {
 					java.util.Date startDate = Data.stringToDate(startDay);
 					if(startDate == null) {
 						System.out.println("Date is invalid.");
+						IO.readLine("Enter to continue.");
 						return;
 					}
 					System.out.println("Enter the end day in this format - yyyy-[m]m-[d]d");
@@ -90,6 +92,7 @@ public class StateManager {
 					java.util.Date endDate = Data.stringToDate(endDay);
 					if(endDate == null || startDate.compareTo(endDate) > 0) {
 						System.out.println("Date is invalid.");
+						IO.readLine("Enter to continue.");
 						return;
 					}
 					Data.addOngoingTask(startDate, endDate, IO.readLine("Task: "));
@@ -147,6 +150,44 @@ public class StateManager {
 					System.out.println(" - exit");
 				} else if(input.equals("delete note")) {
 					curDay.removeNote(Integer.parseInt(IO.readLine("Note number: ")) - 1);
+					return;
+				} else if(input.equals("new ongoing task") || input.equals("not")) {
+					System.out.println("Enter the start day in this format - yyyy-[m]m-[d]d");
+					String startDay = IO.readLine();
+					java.util.Date startDate = Data.stringToDate(startDay);
+					if(startDate == null) {
+						System.out.println("Date is invalid.");
+						IO.readLine("Enter to continue.");
+						return;
+					}
+					System.out.println("Enter the end day in this format - yyyy-[m]m-[d]d");
+					String endDay = IO.readLine();
+					java.util.Date endDate = Data.stringToDate(endDay);
+					if(endDate == null || startDate.compareTo(endDate) > 0) {
+						System.out.println("Date is invalid.");
+						IO.readLine("Enter to continue.");
+						return;
+					}
+					Data.addOngoingTask(startDate, endDate, IO.readLine("Task: "));
+					return;
+				} else if(input.equals("today")) {
+					curWeek = Data.getWeek(DateFinder.getDate());
+					curDay = curWeek.getDay(DateFinder.getDate());
+					return;
+				} else if(input.equals("go to day") || input.equals("gtd")) {
+					System.out.println("Enter the day in this format - yyyy-[m]m-[d]d");
+					String tempInput = IO.readLine();
+					java.util.Date tempDate = Data.stringToDate(tempInput);
+					if(tempDate == null) {
+						System.out.println("Date is invalid.");
+						IO.readLine("Enter to continue.");
+						return;
+					}
+					if((curWeek = Data.getWeek(tempDate)) != null) {
+						curDay = curWeek.getDay(tempDate);
+					} else {
+						curWeek = new Week(curDay = new Day(tempDate));
+					}
 					return;
 				} else if(input.substring(0,6).equals("delete")) {
 					curDay.removeTask(Integer.parseInt(input.substring(7,input.length())) - 1);
