@@ -7,6 +7,8 @@ public class Data {
 	public static ArrayList<Week> weeks;
 	private static File dataFile;
 	private static String backupFileString = ".0";
+	private static boolean carryTasks = false;
+	private static java.util.Date lastLogin = null;
 	public static Week getCurWeek() {
 		return weeks.get(weeks.size() - 1);
 	}
@@ -74,8 +76,6 @@ public class Data {
 			String line = null;
 			Week curWeek = null;
 			Day curDay = null;
-			boolean carryTasks = false;
-			java.util.Date lastLogin = null;
 			while((line = br.readLine()) != null) {
 				if(line.equals("LASTLOGIN")) {
 					line = br.readLine();
@@ -140,28 +140,30 @@ public class Data {
 					}
 				}
 			}
-			if(carryTasks == true) {
-				ArrayList<ArrayList<String>> taskStrings = new ArrayList<ArrayList<String>>();
-				Week tempWeek = getWeek(lastLogin);
-				int weekIndex = getWeekIndex(tempWeek);
-				Day tempDay = tempWeek.getDay(lastLogin);
-				while(!(DateFinder.getDateString(tempDay.getDate()).equals(DateFinder.getDateString(today)))) {
-					taskStrings.add(tempDay.getTasksStrings());
-					java.util.Date tempDate = DateFinder.addDay(tempDay.getDate());
-					if((tempDay = tempWeek.getDay(tempDate)) == null) {
-						weekIndex++;
-						tempWeek = weeks.get(weekIndex);
-						tempDay = tempWeek.getFirstDay();
-					} 
-				}
-				for(ArrayList<String> a: taskStrings) {
-					for(String task: a) {
-						tempDay.addTask(task);
-					}
-				}
-			}
 		}catch(Exception E) {
 			E.printStackTrace();
+		}
+	}
+	public static void carryTasks() {
+		if(carryTasks == true) {
+			ArrayList<ArrayList<String>> taskStrings = new ArrayList<ArrayList<String>>();
+			Week tempWeek = getWeek(lastLogin);
+			int weekIndex = getWeekIndex(tempWeek);
+			Day tempDay = tempWeek.getDay(lastLogin);
+			while(!(DateFinder.getDateString(tempDay.getDate()).equals(DateFinder.getDateString(DateFinder.getDate())))) {
+				taskStrings.add(tempDay.getTasksStrings());
+				java.util.Date tempDate = DateFinder.addDay(tempDay.getDate());
+				if((tempDay = tempWeek.getDay(tempDate)) == null) {
+					weekIndex++;
+					tempWeek = weeks.get(weekIndex);
+					tempDay = tempWeek.getFirstDay();
+				} 
+			}
+			for(ArrayList<String> a: taskStrings) {
+				for(String task: a) {
+					tempDay.addTask(task);
+				}
+			}
 		}
 	}
 	public static void initializeFiles() {
@@ -202,7 +204,7 @@ public class Data {
 		System.out.println();
 		IO.readLine("Press enter to continue.");
 		System.out.println();
-		System.out.println("These are the basic functions of the journal. I hope it benefits you and helps you stay focused throughout your days. You can always type \"help\" in the program to see possible commands and there syntax. You can also visit this project's Github page (journal, by Zach332) to learn more and see advanced tips. Enjoy!");
+		System.out.println("These are the basic functions of the journal. I hope it benefits you and helps you stay focused throughout your days. You can always type \"help\" in the program to see possible commands and their syntax. You can also visit this project's Github page (journal, by Zach332) to learn more and see advanced tips. Enjoy!");
 		System.out.println();
 		IO.readLine("Press enter to continue to the journal.");
 	}

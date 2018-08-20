@@ -12,9 +12,9 @@ public class Day {
 		notes = new Notes();
 		reflection = new Reflection();
 		if(DateFinder.getDay(date).equals("Monday")) {
-			addTask("Write weekly goals");
+			addDailyTask("Write weekly goals");
 		} else if(DateFinder.getDay(date).equals("Sunday")) {
-			addTask("Write weekly reflection");
+			addDailyTask("Write weekly reflection");
 		}
 	}
 	public Day(Date date) {
@@ -23,9 +23,9 @@ public class Day {
 		notes = new Notes();
 		reflection = new Reflection();
 		if(DateFinder.getDay(date).equals("Monday")) {
-			addTask("Write weekly goals");
+			addDailyTask("Write weekly goals");
 		} else if(DateFinder.getDay(date).equals("Sunday")) {
-			addTask("Write weekly reflection");
+			addDailyTask("Write weekly reflection");
 		}
 	}
 	public Day(Date date, boolean isStoredDate) {

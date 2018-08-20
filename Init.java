@@ -16,6 +16,7 @@ public class Init {
 		} else {
 			curWeek = new Week(curDay = new Day());
 		}
+		Data.carryTasks();
 		StateManager man = new StateManager(StateManager.State.DayView, curDay, curWeek);
 		man.appRun();
 
