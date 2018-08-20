@@ -54,9 +54,7 @@ public class StateManager {
 					Data.save();
 					System.exit(0);
 				} else if(input.equals("help")) {
-					System.out.println(" - new - (task, goal, reflection");
-					System.out.println(" - day #");
-					System.out.println(" - exit");
+					printWeekHelp();
 				} else if(input.equals("today")) {
 					curWeek = Data.getWeek(DateFinder.getDate());
 					curDay = curWeek.getDay(DateFinder.getDate());
@@ -110,7 +108,10 @@ public class StateManager {
 				} else {
 					System.out.println("Input invalid.");
 				}
-			} catch(Exception E) {E.printStackTrace();System.out.println("Your input is invalid. Please try again or type \"help\" for help.");}
+			} catch(Exception E) {
+				//E.printStackTrace();
+				System.out.println("Your input is invalid. Please try again or type \"help\" for help.");
+			}
 		}
 	}
 	public void dayView() {
@@ -145,9 +146,7 @@ public class StateManager {
 					Data.save();
 					System.exit(0);
 				} else if(input.equals("help")) {
-					System.out.println(" - new - (task, note, reflection");
-					System.out.println(" - week");
-					System.out.println(" - exit");
+					printDayHelp();
 				} else if(input.equals("delete note")) {
 					curDay.removeNote(Integer.parseInt(IO.readLine("Note number: ")) - 1);
 					return;
@@ -198,7 +197,32 @@ public class StateManager {
 				} else {
 					System.out.println("Input invalid.");
 				}
-			} catch(Exception E) {E.printStackTrace();System.out.println("Your input is invalid. Please try again or type \"help\" for help.");}
+			} catch(Exception E) {
+				//E.printStackTrace();
+				System.out.println("Your input is invalid. Please try again or type \"help\" for help.");
+			}
 		}
+	}
+	public void printWeekHelp() {
+		System.out.println("The following are potential commands. For more detail, see the Github page.");
+		System.out.println(" - new (task, ongoing task, goal, reflection");
+		System.out.println(" - day (#)");
+		System.out.println(" - delete goal");
+		System.out.println(" - today");
+		System.out.println(" - go to day");
+		System.out.println(" - delete (task #)");
+		System.out.println(" - complete (task #)");
+		System.out.println(" - exit");
+	}
+	public void printDayHelp() {
+		System.out.println("The following are potential commands. For more detail, see the Github page.");
+		System.out.println(" - new (task, ongoing task, daily task, note, reflection");
+		System.out.println(" - week");
+		System.out.println(" - delete note");
+		System.out.println(" - today");
+		System.out.println(" - go to day");
+		System.out.println(" - delete (task #)");
+		System.out.println(" - complete (task #)");
+		System.out.println(" - exit");
 	}
 }

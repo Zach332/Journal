@@ -182,6 +182,29 @@ public class Data {
 			System.out.println("Error initializing data files.");
 			System.exit(0);
 		}
+		System.out.println("Welcome to your journal!");
+		System.out.println();
+		System.out.println("This journal is designed to help you stay organized and focused on your primary goals. Below are some tips to help you make the most of this journal.");
+		System.out.println();
+		IO.readLine("Press enter to continue.");
+		System.out.println();
+		System.out.println(" - Write your goals for the week every Monday. These should be general statements of what you want to accomplish that you can turn into actionable tasks on individual days.");
+		System.out.println();
+		System.out.println(" - Write a reflection at the end of every day about what you learned that day; this will help you remember the most important parts of your days and enable you to use those lessons in the future.");
+		System.out.println();
+		System.out.println(" - Write a weekly reflection every Sunday. This should be about your success in completing your weekly goals and daily tasks, and how you can improve in future weeks.");
+		System.out.println();
+		System.out.println(" - Write daily tasks every morning to help you focus on what you want to accomplish. At the end of the day, complete the tasks you finished and delete any you decide are unimportant. Any remaining tasks will, by default, carry over to the next day.");
+		System.out.println();
+		IO.readLine("Press enter to continue.");
+		System.out.println();
+		System.out.println("Remember to always type \"exit\" at the end of each session to save your data. Content is not saved automatically.");
+		System.out.println();
+		IO.readLine("Press enter to continue.");
+		System.out.println();
+		System.out.println("These are the basic functions of the journal. I hope it benefits you and helps you stay focused throughout your days. You can always type \"help\" in the program to see possible commands and there syntax. You can also visit this project's Github page (journal, by Zach332) to learn more and see advanced tips. Enjoy!");
+		System.out.println();
+		IO.readLine("Press enter to continue to the journal.");
 	}
 	public static void addOngoingTask(java.util.Date startDate, java.util.Date endDate, String task) {
 		java.util.Date curDate = startDate;
