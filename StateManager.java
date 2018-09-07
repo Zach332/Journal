@@ -205,7 +205,7 @@ public class StateManager {
 	}
 	public void printWeekHelp() {
 		System.out.println("The following are potential commands. For more detail, see the Github page.");
-		System.out.println(" - new (task, ongoing task, goal, reflection");
+		System.out.println(" - new (task, ongoing task, goal, reflection)");
 		System.out.println(" - day (#)");
 		System.out.println(" - delete goal");
 		System.out.println(" - today");
@@ -216,7 +216,7 @@ public class StateManager {
 	}
 	public void printDayHelp() {
 		System.out.println("The following are potential commands. For more detail, see the Github page.");
-		System.out.println(" - new (task, ongoing task, daily task, note, reflection");
+		System.out.println(" - new (task, ongoing task, daily task, note, reflection)");
 		System.out.println(" - week");
 		System.out.println(" - delete note");
 		System.out.println(" - today");
