@@ -9,7 +9,7 @@ Installation (note that Java must be installed):
 3. Create a "com" folder inside "src"
 4. Create a "jou" folder inside "com"
 5. Create a "main" folder inside "jou"
-6. Copy all the files in this github repository into the "main" folder
+6. Copy all the files from this github repository into the "main" folder
 7. Open the command line and enter the "Journal" folder
 8. Enter "java src.com.jou.main.Init"
 
