@@ -95,7 +95,7 @@ public class StateManager {
 					}
 					Data.addOngoingTask(startDate, endDate, IO.readLine("Task: "));
 					return;
-				} else if(input.substring(0,1).equals("c")) {
+				} else if(input.substring(0,2).equals("c ")) {
 					curWeek.addCompletedTask(curWeek.removeTask(Integer.parseInt(input.substring(2,input.length())) - 1));
 					return;
 				} else if(input.substring(0,3).equals("day")) {
@@ -191,7 +191,7 @@ public class StateManager {
 						curWeek = new Week(curDay = new Day(tempDate));
 					}
 					return;
-				} else if(input.substring(0,1).equals("c")) {
+				} else if(input.substring(0,2).equals("c ")) {
 					curWeek.addCompletedTask(curDay.removeTask(Integer.parseInt(input.substring(2,input.length())) - 1));
 					return;
 				} else if(input.substring(0,6).equals("delete")) {
