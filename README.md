@@ -30,7 +30,7 @@ Now, every time you want to use the Journal, you can just do the last two steps 
 
 ## Commmand Descriptions:
 
-Week View
+### Week View
 - new (task, ongoing task, goal, reflection): 
     Add a new item of that type to the week. An ongoing task will be added to every date in a range of dates (you will be prompted for 
     the date range).
@@ -50,7 +50,7 @@ Week View
 - exit: 
     Exits the program and saves your data. Always use exit, unless you do not want to save your changes.
 
-Day View
+### Day View
 - new (task, ongoing task, daily task, note, reflection): 
     Add a new item of that type to the week. An ongoing task will be added to every date in a range of dates (you will be prompted for 
     the date range). A daily task will not carry to your next login date if not completed.
