@@ -1,9 +1,9 @@
-Journal - A Planning Tool
+# Journal - A Planning Tool
 
 This journal's aim is to help users plan their time effectively, stay on task, and reflect on their experiences. 
 
 
-Installation (note that Java must be installed): 
+## Installation (note that Java must be installed): 
 1. Create a "Journal" folder
 2. Create a "src" folder inside "Journal"
 3. Create a "com" folder inside "src"
@@ -16,19 +16,19 @@ Installation (note that Java must be installed):
 Now, every time you want to use the Journal, you can just do the last two steps (or create an alias to do it for you).
 
 
-Effective Use Guidelines:
+## Effective Use Guidelines:
 
 - Make a list of tasks every morning, keeping in mind the week's goals. This will help you start the day with the right mindset and stay on task.
 - "Complete" any tasks you finish to feel a sense of accomplishment and motivation.
 - Reflect on what you learn at the end of every day to help you improve in the future.
 - Always use "exit" or "quit" after editing the journal to save your data.
 
-Important Notes:
+## Important Notes:
 
 - Normal tasks carry over to the next day you log in if not completed, so you do not need to worry about forgetting to complete a task and losing it. Daily tasks will not carry over. Ongoing tasks only apply to the given date range and do not carry over.
 - All data is saved in the text file journalData.txt (in the Journal folder). This includes completed tasks; you will be reminded of the tasks you have completed in a week when writing a weekly reflection. Deleted data, however, is not saved.
 
-Commmand Descriptions:
+## Commmand Descriptions:
 
 Week View
 - new (task, ongoing task, goal, reflection): 
@@ -70,7 +70,7 @@ Day View
 - exit: 
     Exits the program and saves your data. Always use exit, unless you do not want to save your changes.
 
-Shortcuts and Advanced Notes:
+## Shortcuts and Advanced Notes:
 
 - Backups of the last 5 saves are stored on a rotating basis. The third line of journalData.txt states the most recent backup save location. The five backup locations are: .0, .1, .2, .3, .4
 - When entering dates, you will be prompted to use the format yyyy-[m]m-[d]d. You may simply use [m]m-[d]d if the desired date is the current year.
